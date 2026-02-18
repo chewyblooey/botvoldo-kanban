@@ -10,29 +10,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .updated{text-align:center;color:#888;font-size:.8rem;margin-bottom:20px}
 .board{display:flex;gap:16px;overflow-x:auto;padding-bottom:20px;align-items:flex-start}
-.column{min-width:260px;flex:1;border-radius:12px;padding:14px;background:#16213e}
-.column h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid}
-.col-not-started h2{border-color:#6b7280;color:#9ca3af}
-.col-in-progress h2{border-color:#3b82f6;color:#60a5fa}
-.col-blocked h2{border-color:#ef4444;color:#f87171}
-.col-for-review h2{border-color:#eab308;color:#facc15}
-.col-done h2{border-color:#22c55e;color:#4ade80}
-.card{background:#0f1729;border-radius:8px;padding:12px;margin-bottom:10px;border-left:3px solid}
+.column{min-width:280px;flex:1;border-radius:12px;padding:14px;background:#16213e}
+.column>h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid}
+.col-not-started>h2{border-color:#6b7280;color:#9ca3af}
+.col-in-progress>h2{border-color:#3b82f6;color:#60a5fa}
+.col-blocked>h2{border-color:#ef4444;color:#f87171}
+.col-for-review>h2{border-color:#eab308;color:#facc15}
+.col-done>h2{border-color:#22c55e;color:#4ade80}
+.project-group{margin-bottom:14px}
+.project-header{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 10px;border-radius:6px;margin-bottom:8px;display:inline-block}
+.project-admin{background:#64748b;color:#fff}
+.project-rainbow{background:#059669;color:#fff}
+.project-protocol{background:#8b5cf6;color:#fff}
+.project-benqi{background:#0d9488;color:#fff}
+.project-atlast{background:#d97706;color:#fff}
+.project-engel{background:#0891b2;color:#fff}
+.project-frensy{background:#db2777;color:#fff}
+.project-tria{background:#6366f1;color:#fff}
+.project-magiceden{background:#7c3aed;color:#fff}
+.project-phoenix{background:#c026d3;color:#fff}
+.project-setup{background:#475569;color:#fff}
+.project-fireflies{background:#ea580c;color:#fff}
+.project-discord{background:#5865f2;color:#fff}
+.card{background:#0f1729;border-radius:8px;padding:10px 12px;margin-bottom:8px;border-left:3px solid}
 .col-not-started .card{border-left-color:#6b7280}
 .col-in-progress .card{border-left-color:#3b82f6}
 .col-blocked .card{border-left-color:#ef4444}
 .col-for-review .card{border-left-color:#eab308}
 .col-done .card{border-left-color:#22c55e}
-.badge{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px;margin-bottom:6px}
-.badge-phoenix{background:#7c3aed;color:#fff}
-.badge-pro-rata{background:#0891b2;color:#fff}
-.badge-frensy{background:#db2777;color:#fff}
-.badge-fireflies{background:#ea580c;color:#fff}
-.badge-rainbow{background:#059669;color:#fff}
-.badge-discord{background:#5865f2;color:#fff}
-.badge-setup{background:#64748b;color:#fff}
 .card p{font-size:.82rem;color:#cbd5e1;line-height:1.4}
 .count{font-size:.7rem;color:#64748b;margin-left:6px}
+.empty{font-size:.75rem;color:#4b5563;font-style:italic;padding:8px 0}
 @media(max-width:768px){.board{flex-direction:column}.column{min-width:100%}}
 </style>
 </head>
@@ -42,59 +50,133 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 <div class="board" id="board"></div>
 <script>
 const DATA = {
-  lastUpdated: "2025-02-18",
+  lastUpdated: "2026-02-18T15:02:00-08:00",
   columns: [
-    { id: "not-started", title: "Not Started", tasks: [
-      { project: "Phoenix", desc: "End-of-week survey Google Form" },
-      { project: "Phoenix", desc: "4-week rollout plan for health system" },
-      { project: "Pro Rata", desc: "Send kickoff questions to Bryan" }
+    { id: "not-started", title: "Not Started", groups: [
+      { project: "Admin", tasks: [
+        "Fix Botvoldo's Discord bot permissions (can't post in #client-health)"
+      ]},
+      { project: "Rainbow", tasks: [
+        "Collect benchmarks from protocols",
+        "Performance above industry standard — what's the target?",
+        "Figure out excerpts from long chats",
+        "Find instances of compliments",
+        "Invoices/payments to individuals",
+        "Contracts for FFs",
+        "Conversations confirming FFs for Rainbow",
+        "Screenshot confirming termination was meant to come from Alex",
+        "Receipts for recruiter costs",
+        "Find approved brief messages"
+      ]},
+      { project: "Protocol", tasks: [
+        "Transfer Klaviyo ownership"
+      ]},
+      { project: "Benqi", tasks: [
+        "Review strategy to date"
+      ]},
+      { project: "At Last", tasks: [
+        "Review updated docs and next steps with Carl"
+      ]},
+      { project: "Engel", tasks: [
+        "Email Molly project plan for week 1",
+        "Creative Claude Cowork initial work"
+      ]},
+      { project: "Tria", tasks: [
+        "Schedule meeting with Carl to discuss Community Response Team"
+      ]},
+      { project: "Phoenix", tasks: [
+        "End-of-week survey Google Form",
+        "4-week rollout plan for health system"
+      ]}
     ]},
-    { id: "in-progress", title: "In Progress", tasks: [
-      { project: "Phoenix", desc: "Client health tracking system (sheet built, survey pending)" },
-      { project: "Frensy", desc: "UX docs ready for Bryan review (5 docs sent)" },
-      { project: "Phoenix", desc: "Creative workflow — Bryan reviewing prompt" },
-      { project: "Fireflies", desc: "Complete sales analysis (28 remaining transcripts)" },
-      { project: "Rainbow", desc: "WAGMI Inc. research (v3 delivered, may need more)" }
+    { id: "in-progress", title: "In Progress", groups: [
+      { project: "Frensy", tasks: [
+        "UX docs ready for Bryan review (5 docs sent)",
+        "Implement UX recommendations",
+        "Review and send annotations/docs to team"
+      ]},
+      { project: "Phoenix", tasks: [
+        "Client health tracking system (sheet built, survey pending)",
+        "Creative workflow — Bryan reviewing prompt"
+      ]},
+      { project: "Fireflies", tasks: [
+        "Complete sales analysis (28 remaining transcripts)"
+      ]}
     ]},
-    { id: "blocked", title: "Blocked", tasks: [
-      { project: "Fireflies", desc: "28 transcript fetches (API rate limit)" },
-      { project: "Discord", desc: "Bot can't post in #client-health (permissions issue)" }
+    { id: "blocked", title: "Blocked", groups: [
+      { project: "Fireflies", tasks: [
+        "28 transcript fetches (API rate limit)"
+      ]},
+      { project: "Discord", tasks: [
+        "Bot can't post in #client-health (permissions issue)"
+      ]}
     ]},
-    { id: "for-review", title: "For Review", tasks: [
-      { project: "Rainbow", desc: "WAGMI Inc. research v3" },
-      { project: "Pro Rata", desc: "Kickoff questions" },
-      { project: "Frensy", desc: "UX annotations + dev docs (5 files)" },
-      { project: "Phoenix", desc: "Creative workflow prompt" }
+    { id: "for-review", title: "For Review", groups: [
+      { project: "Rainbow", tasks: [
+        "WAGMI Inc. research v3"
+      ]},
+      { project: "Engel", tasks: [
+        "Kickoff questions"
+      ]},
+      { project: "Frensy", tasks: [
+        "UX annotations + dev docs (5 files)"
+      ]},
+      { project: "Phoenix", tasks: [
+        "Creative workflow prompt",
+        "Client health framework + tracking sheet"
+      ]}
     ]},
-    { id: "done", title: "Done", tasks: [
-      { project: "Rainbow", desc: "Company research v1, v2, v3" },
-      { project: "Pro Rata", desc: "Kickoff questions drafted" },
-      { project: "Phoenix", desc: "Creative workflow prompt created" },
-      { project: "Phoenix", desc: "Project health research" },
-      { project: "Phoenix", desc: "Client health framework posted" },
-      { project: "Setup", desc: "Discord bot (4 channels)" },
-      { project: "Setup", desc: "Google Workspace (gog CLI)" },
-      { project: "Setup", desc: "Shared Drive folder" },
-      { project: "Setup", desc: "Gmail email verified" },
-      { project: "Setup", desc: "Kanban board Google Sheet" }
+    { id: "done", title: "Done", groups: [
+      { project: "Admin", tasks: [
+        "GitHub access + kanban board deployed"
+      ]},
+      { project: "Rainbow", tasks: [
+        "Company research v1, v2, v3 delivered"
+      ]},
+      { project: "Engel", tasks: [
+        "Kickoff questions drafted"
+      ]},
+      { project: "Phoenix", tasks: [
+        "Creative workflow prompt created",
+        "Project health research",
+        "Client health framework posted"
+      ]},
+      { project: "Setup", tasks: [
+        "Discord bot (4 channels)",
+        "Google Workspace (gog CLI)",
+        "Shared Drive folder",
+        "Gmail email verified",
+        "Kanban board site live"
+      ]}
     ]}
   ]
 };
 
-document.getElementById('updated').textContent = 'Last updated: ' + DATA.lastUpdated;
+const projectClass = p => 'project-' + p.toLowerCase().replace(/\s+/g, '').replace('/', '');
+const formatDate = d => new Date(d).toLocaleString('en-US', {dateStyle:'medium', timeStyle:'short'});
+
+document.getElementById('updated').textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
 const board = document.getElementById('board');
-const badgeClass = p => 'badge badge-' + p.toLowerCase().replace(/\s+/g, '-');
 
 DATA.columns.forEach(col => {
   const colEl = document.createElement('div');
   colEl.className = 'column col-' + col.id;
-  colEl.innerHTML = `<h2>${col.title}<span class="count">${col.tasks.length}</span></h2>`;
-  col.tasks.forEach(t => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `<span class="${badgeClass(t.project)}">${t.project}</span><p>${t.desc}</p>`;
-    colEl.appendChild(card);
+  const total = col.groups.reduce((s,g) => s + g.tasks.length, 0);
+  colEl.innerHTML = `<h2>${col.title}<span class="count">${total}</span></h2>`;
+
+  col.groups.forEach(g => {
+    const group = document.createElement('div');
+    group.className = 'project-group';
+    group.innerHTML = `<span class="project-header ${projectClass(g.project)}">${g.project}</span>`;
+    g.tasks.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<p>${t}</p>`;
+      group.appendChild(card);
+    });
+    colEl.appendChild(group);
   });
+
   board.appendChild(colEl);
 });
 </script>
