@@ -38,8 +38,13 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .col-blocked>h2{border-color:#ef4444;color:#f87171}
 .col-for-review>h2{border-color:#eab308;color:#facc15}
 .col-done>h2{border-color:#22c55e;color:#4ade80}
-.card{background:#0f1729;border-radius:8px;padding:10px 12px;margin-bottom:8px;border-left:3px solid;cursor:pointer;transition:background .15s}
+.card{background:#0f1729;border-radius:8px;padding:10px 12px;margin-bottom:8px;border-left:3px solid;cursor:grab;transition:background .15s,opacity .15s,transform .15s}
 .card:hover{background:#1a2340}
+.card.dragging{opacity:.4;transform:scale(.95)}
+.column.drag-over{background:#1a2744;outline:2px dashed #3b82f6;outline-offset:-4px}
+.move-btns{display:flex;gap:4px;margin-top:6px}
+.move-btn{background:#2a3a5c;border:none;color:#94a3b8;font-size:.65rem;padding:3px 8px;border-radius:4px;cursor:pointer;transition:background .15s,color .15s}
+.move-btn:hover{background:#3b82f6;color:#fff}
 .col-not-started .card{border-left-color:#6b7280}
 .col-in-progress .card{border-left-color:#3b82f6}
 .col-blocked .card{border-left-color:#ef4444}
@@ -227,18 +232,59 @@ function showProject(name) {
   document.querySelector(`.tab[data-project="${name}"]`).classList.add('active');
 
   boardEl.innerHTML = '';
+  let draggedTask = null;
+
   statuses.forEach(s => {
     const col = document.createElement('div');
     col.className = 'column col-' + s;
+    col.dataset.status = s;
     const tasks = proj.tasks.filter(t => t.status === s);
     col.innerHTML = `<h2>${statusLabels[s]}<span class="count">${tasks.length}</span></h2>`;
     if(tasks.length === 0) col.innerHTML += '<div class="empty-col">No tasks</div>';
+
+    // Drop zone
+    col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('drag-over'); });
+    col.addEventListener('dragleave', () => col.classList.remove('drag-over'));
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      col.classList.remove('drag-over');
+      if(draggedTask && draggedTask.status !== s) {
+        draggedTask.status = s;
+        showProject(activeTab);
+      }
+    });
+
     tasks.forEach(t => {
       const card = document.createElement('div');
       card.className = 'card';
+      card.draggable = true;
+      card.addEventListener('dragstart', () => { draggedTask = t; card.classList.add('dragging'); });
+      card.addEventListener('dragend', () => { draggedTask = null; card.classList.remove('dragging'); });
+
       const hasInfo = (t.notes || (t.docs && t.docs.length > 0));
-      card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}`;
-      card.addEventListener('click', () => openCard(t));
+      // Move buttons
+      const si = statuses.indexOf(s);
+      let moveBtns = '<div class="move-btns">';
+      if(si > 0) moveBtns += `<span class="move-btn" data-dir="left">← ${statusLabels[statuses[si-1]]}</span>`;
+      if(si < statuses.length - 1) moveBtns += `<span class="move-btn" data-dir="right">${statusLabels[statuses[si+1]]} →</span>`;
+      moveBtns += '</div>';
+
+      card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}${moveBtns}`;
+
+      // Click handlers for move buttons
+      card.querySelectorAll('.move-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const dir = btn.dataset.dir;
+          const newIdx = dir === 'left' ? si - 1 : si + 1;
+          t.status = statuses[newIdx];
+          showProject(activeTab);
+        });
+      });
+
+      card.addEventListener('click', e => {
+        if(!e.target.classList.contains('move-btn')) openCard(t);
+      });
       col.appendChild(card);
     });
     boardEl.appendChild(col);
