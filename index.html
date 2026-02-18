@@ -263,8 +263,8 @@ function openCard(task) {
   overlay.classList.add('active');
 }
 
-// Build tabs
-Object.entries(DATA.projects).forEach(([name, proj]) => {
+// Build tabs (alphabetical)
+Object.entries(DATA.projects).sort((a,b) => a[0].localeCompare(b[0])).forEach(([name, proj]) => {
   const tab = document.createElement('button');
   tab.className = 'tab ' + proj.tabClass;
   tab.dataset.project = name;
