@@ -42,9 +42,7 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .card:hover{background:#1a2340}
 .card.dragging{opacity:.4;transform:scale(.95)}
 .column.drag-over{background:#1a2744;outline:2px dashed #3b82f6;outline-offset:-4px}
-.move-btns{display:flex;gap:4px;margin-top:6px}
-.move-btn{background:#2a3a5c;border:none;color:#94a3b8;font-size:.65rem;padding:3px 8px;border-radius:4px;cursor:pointer;transition:background .15s,color .15s}
-.move-btn:hover{background:#3b82f6;color:#fff}
+/* removed move buttons - drag only */
 .col-not-started .card{border-left-color:#6b7280}
 .col-in-progress .card{border-left-color:#3b82f6}
 .col-blocked .card{border-left-color:#ef4444}
@@ -262,29 +260,8 @@ function showProject(name) {
       card.addEventListener('dragend', () => { draggedTask = null; card.classList.remove('dragging'); });
 
       const hasInfo = (t.notes || (t.docs && t.docs.length > 0));
-      // Move buttons
-      const si = statuses.indexOf(s);
-      let moveBtns = '<div class="move-btns">';
-      if(si > 0) moveBtns += `<span class="move-btn" data-dir="left">← ${statusLabels[statuses[si-1]]}</span>`;
-      if(si < statuses.length - 1) moveBtns += `<span class="move-btn" data-dir="right">${statusLabels[statuses[si+1]]} →</span>`;
-      moveBtns += '</div>';
-
-      card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}${moveBtns}`;
-
-      // Click handlers for move buttons
-      card.querySelectorAll('.move-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-          e.stopPropagation();
-          const dir = btn.dataset.dir;
-          const newIdx = dir === 'left' ? si - 1 : si + 1;
-          t.status = statuses[newIdx];
-          showProject(activeTab);
-        });
-      });
-
-      card.addEventListener('click', e => {
-        if(!e.target.classList.contains('move-btn')) openCard(t);
-      });
+      card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}`;
+      card.addEventListener('click', () => openCard(t));
       col.appendChild(card);
     });
     boardEl.appendChild(col);
