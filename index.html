@@ -8,32 +8,41 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;padding:20px}
 h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
-.updated{text-align:center;color:#888;font-size:.8rem;margin-bottom:20px}
-.board{display:flex;gap:16px;overflow-x:auto;padding-bottom:20px;align-items:flex-start}
-.column{min-width:280px;flex:1;border-radius:12px;padding:14px;background:#16213e}
+.subtitle{text-align:center;color:#888;font-size:.8rem;margin-bottom:24px}
+.back{display:inline-flex;align-items:center;gap:6px;color:#60a5fa;text-decoration:none;font-size:.85rem;margin-bottom:16px;cursor:pointer}
+.back:hover{color:#93c5fd}
+
+/* Dashboard */
+.dashboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;max-width:1200px;margin:0 auto}
+.project-card{background:#16213e;border-radius:12px;padding:20px;cursor:pointer;transition:transform .15s,box-shadow .15s;border-left:4px solid}
+.project-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.project-card h3{font-size:1rem;color:#fff;margin-bottom:8px}
+.project-card .stats{font-size:.75rem;color:#94a3b8;display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.project-card .stats span{display:flex;align-items:center;gap:4px}
+.project-card .desc{font-size:.8rem;color:#64748b;line-height:1.4}
+.pc-admin{border-left-color:#64748b}
+.pc-rainbow{border-left-color:#059669}
+.pc-protocol{border-left-color:#8b5cf6}
+.pc-benqi{border-left-color:#0d9488}
+.pc-atlast{border-left-color:#d97706}
+.pc-engel{border-left-color:#0891b2}
+.pc-frensy{border-left-color:#db2777}
+.pc-tria{border-left-color:#6366f1}
+.pc-magiceden{border-left-color:#7c3aed}
+.pc-phoenix{border-left-color:#c026d3}
+.pc-setup{border-left-color:#475569}
+
+/* Board */
+.board{display:flex;gap:16px;overflow-x:auto;padding-bottom:20px;align-items:flex-start;max-width:1400px;margin:0 auto}
+.column{min-width:250px;flex:1;border-radius:12px;padding:14px;background:#16213e}
 .column>h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid}
 .col-not-started>h2{border-color:#6b7280;color:#9ca3af}
 .col-in-progress>h2{border-color:#3b82f6;color:#60a5fa}
 .col-blocked>h2{border-color:#ef4444;color:#f87171}
 .col-for-review>h2{border-color:#eab308;color:#facc15}
 .col-done>h2{border-color:#22c55e;color:#4ade80}
-.project-group{margin-bottom:14px}
-.project-header{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 10px;border-radius:6px;margin-bottom:8px;display:inline-block}
-.project-admin{background:#64748b;color:#fff}
-.project-rainbow{background:#059669;color:#fff}
-.project-protocol{background:#8b5cf6;color:#fff}
-.project-benqi{background:#0d9488;color:#fff}
-.project-atlast{background:#d97706;color:#fff}
-.project-engel{background:#0891b2;color:#fff}
-.project-frensy{background:#db2777;color:#fff}
-.project-tria{background:#6366f1;color:#fff}
-.project-magiceden{background:#7c3aed;color:#fff}
-.project-phoenix{background:#c026d3;color:#fff}
-.project-setup{background:#475569;color:#fff}
-.project-fireflies{background:#ea580c;color:#fff}
-.project-discord{background:#5865f2;color:#fff}
-.card{background:#0f1729;border-radius:8px;padding:10px 12px;margin-bottom:8px;border-left:3px solid;cursor:pointer;transition:background .15s,transform .1s}
-.card:hover{background:#1a2340;transform:translateX(2px)}
+.card{background:#0f1729;border-radius:8px;padding:10px 12px;margin-bottom:8px;border-left:3px solid;cursor:pointer;transition:background .15s}
+.card:hover{background:#1a2340}
 .col-not-started .card{border-left-color:#6b7280}
 .col-in-progress .card{border-left-color:#3b82f6}
 .col-blocked .card{border-left-color:#ef4444}
@@ -42,7 +51,7 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .card p{font-size:.82rem;color:#cbd5e1;line-height:1.4}
 .card .has-details{font-size:.65rem;color:#64748b;margin-top:4px}
 .count{font-size:.7rem;color:#64748b;margin-left:6px}
-.empty{font-size:.75rem;color:#4b5563;font-style:italic;padding:8px 0}
+.empty-col{font-size:.8rem;color:#4b5563;font-style:italic;padding:12px 0}
 
 /* Modal */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;justify-content:center;align-items:center;padding:20px}
@@ -51,7 +60,6 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#888;font-size:1.4rem;cursor:pointer}
 .modal-close:hover{color:#fff}
 .modal h3{font-size:1.1rem;color:#fff;margin-bottom:4px}
-.modal .modal-project{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:12px}
 .modal .modal-status{font-size:.75rem;color:#94a3b8;margin-bottom:16px;display:block}
 .modal .section-label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:#64748b;margin-top:16px;margin-bottom:6px;font-weight:700}
 .modal .notes{font-size:.85rem;color:#cbd5e1;line-height:1.6;background:#0f1729;border-radius:8px;padding:12px;white-space:pre-wrap}
@@ -59,194 +67,221 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .modal .docs-list li{margin-bottom:8px}
 .modal .docs-list a{color:#60a5fa;text-decoration:none;font-size:.85rem;display:flex;align-items:center;gap:6px}
 .modal .docs-list a:hover{text-decoration:underline;color:#93c5fd}
-.modal .docs-list .doc-icon{font-size:1rem}
 .modal .no-content{font-size:.8rem;color:#4b5563;font-style:italic}
-@media(max-width:768px){.board{flex-direction:column}.column{min-width:100%}.modal{margin:10px}}
+.hidden{display:none}
+@media(max-width:768px){.board{flex-direction:column}.column{min-width:100%}.dashboard{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<h1>🗂 Botvoldo Kanban</h1>
-<div class="updated" id="updated"></div>
-<div class="board" id="board"></div>
+<h1 id="page-title">🗂 Botvoldo Kanban</h1>
+<div class="subtitle" id="subtitle"></div>
+<a class="back hidden" id="back-btn" onclick="showDashboard()">← Back to Projects</a>
+<div class="dashboard" id="dashboard"></div>
+<div class="board hidden" id="board"></div>
 <div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal">
+  <div class="modal">
     <button class="modal-close" id="modal-close">&times;</button>
     <div id="modal-content"></div>
   </div>
 </div>
 <script>
 const DATA = {
-  lastUpdated: "2026-02-18T15:30:00-08:00",
-  columns: [
-    { id: "not-started", title: "Not Started", groups: [
-      { project: "Admin", tasks: [
-        { desc: "Fix Botvoldo's Discord bot permissions", notes: "Bot can see #general but can't post in #client-health, #pipeline, or #competitive-intel. Bryan needs to check the Botvoldo bot role permissions in Discord server settings — ensure View Channel + Send Messages are enabled for all channels.", docs: [] }
-      ]},
-      { project: "Rainbow", tasks: [
-        { desc: "Collect benchmarks from protocols", notes: "Need industry benchmarks for marketing performance in crypto/Web3 protocols. This supports the arbitration case to show Phoenix delivered above-standard results.", docs: [] },
-        { desc: "Performance above industry standard — what's the target?", notes: "Define what 'above industry standard' means quantitatively. Need to establish KPI baselines for comparable crypto marketing engagements.", docs: [] },
-        { desc: "Figure out excerpts from long chats", notes: "Extract relevant excerpts from lengthy chat histories with Rainbow team. Looking for evidence of scope, deliverables, and agreements.", docs: [] },
-        { desc: "Find instances of compliments", notes: "Search communications for instances where Rainbow team praised Phoenix's work. Evidence of satisfaction before relationship deteriorated.", docs: [] },
-        { desc: "Invoices/payments to individuals", notes: "Gather all invoices sent and payments received from Rainbow/WAGMI Inc. to individuals on Phoenix team.", docs: [] },
-        { desc: "Contracts for FFs", notes: "Locate all contracts related to freelancers/contractors (FFs) who worked on the Rainbow account.", docs: [] },
-        { desc: "Conversations confirming FFs for Rainbow", notes: "Find chat/email conversations that confirm freelancers were engaged specifically for Rainbow work.", docs: [] },
-        { desc: "Screenshot confirming termination was meant to come from Alex", notes: "Find the screenshot or communication showing that the termination notice was supposed to come from Alex (LaPrade, current CEO of WAGMI).", docs: [] },
-        { desc: "Receipts for recruiter costs", notes: "Gather receipts for any recruiting costs incurred for Rainbow-related hiring.", docs: [] },
-        { desc: "Find approved brief messages", notes: "Locate messages where Rainbow team approved creative briefs — evidence that work was sanctioned and accepted.", docs: [] }
-      ]},
-      { project: "Protocol", tasks: [
-        { desc: "Transfer Klaviyo ownership", notes: "Transfer ownership of the Klaviyo account to Protocol team.", docs: [] }
-      ]},
-      { project: "Benqi", tasks: [
-        { desc: "Review strategy to date", notes: "Review the current marketing strategy and results for Benqi. Assess what's working and what needs adjustment.", docs: [] }
-      ]},
-      { project: "At Last", tasks: [
-        { desc: "Review updated docs and next steps with Carl", notes: "Carl has updated docs that need review. Discuss next steps for the At Last project.", docs: [] }
-      ]},
-      { project: "Engel", tasks: [
-        { desc: "Email Molly project plan for week 1", notes: "Send Molly the week 1 project plan for Pro Rata / Engel Collective engagement.", docs: [] },
-        { desc: "Creative Claude Cowork initial work", notes: "Use the creative production workflow prompt in Claude Cowork to start building out the process.", docs: [
-          { name: "Creative Workflow Prompt", url: "https://drive.google.com/file/d/1gvRNCwf5jw8LdtnPtNO0BS3_Rw8hKf-v/view", icon: "📄" }
-        ]}
-      ]},
-      { project: "Tria", tasks: [
-        { desc: "Schedule meeting with Carl to discuss Community Response Team", notes: "New project. Need to set up initial meeting with Carl to discuss the Community Response Team concept.", docs: [] }
-      ]},
-      { project: "Phoenix", tasks: [
-        { desc: "End-of-week survey Google Form", notes: "Build a Google Form for the weekly client health pulse survey. 5 questions (1-5 scale) + open text field. Account leads fill out per client every Friday.", docs: [
-          { name: "Client Health Tracker (Sheet)", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" },
-          { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
-        ]},
-        { desc: "4-week rollout plan for health system", notes: "Detailed implementation plan in the research doc. Needs to be broken into actionable weekly steps.", docs: [
-          { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
-        ]}
-      ]}
-    ]},
-    { id: "in-progress", title: "In Progress", groups: [
-      { project: "Frensy", tasks: [
-        { desc: "UX docs ready for Bryan review (5 docs sent)", notes: "All 5 Frensy UX documents delivered. Bryan needs to review and implement recommendations before sending to team.", docs: [
-          { name: "UX Annotations v3", url: "https://drive.google.com/file/d/1tSfNnh3NPqJC0jr3EdtfYepGxRu3TNId/view", icon: "📄" },
-          { name: "New Features Spec", url: "https://drive.google.com/file/d/18TA-QhdrWnJvaaame8aaaEWviWxkznGs/view", icon: "📄" },
-          { name: "Figma Make Prompts", url: "https://drive.google.com/file/d/1NenqAj-WhJpf5bIalwKbDXS5HuLxqQnF/view", icon: "📄" },
-          { name: "Dev Documentation", url: "https://drive.google.com/file/d/1KWEvCoHpNvnG9M4hWvoX49L95nQiLUln/view", icon: "📄" },
-          { name: "MVP vs Future State", url: "https://drive.google.com/file/d/1GjjNIeFDfJBjm65LY5cT6qCw4ZGk_gMT/view", icon: "📄" }
-        ]},
-        { desc: "Implement UX recommendations", notes: "Submit Post → FAB/compact bar. Profile → clear sections, removed duplicate 'Total Earned'. Marketplace → visual product cards instead of stacked buttons.", docs: [] },
-        { desc: "Review and send annotations/docs to team", notes: "After Bryan's review, docs go to the dev/design team for implementation.", docs: [] }
-      ]},
-      { project: "Phoenix", tasks: [
-        { desc: "Client health tracking system", notes: "Sheet is built with 3 tabs (Weekly Scores, Client Summary, Signal Log). Survey form still needs to be created. Scoring: 7 signals, -11 to +10 range, RAG thresholds.", docs: [
-          { name: "Client Health Tracker", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" }
-        ]},
-        { desc: "Creative workflow — Bryan reviewing prompt", notes: "5-stage creative production workflow prompt ready for Claude Cowork. Bryan reviewing before using.", docs: [
-          { name: "Creative Workflow Prompt", url: "https://drive.google.com/file/d/1gvRNCwf5jw8LdtnPtNO0BS3_Rw8hKf-v/view", icon: "📄" }
-        ]}
-      ]},
-      { project: "Fireflies", tasks: [
-        { desc: "Complete sales analysis (28 remaining transcripts)", notes: "22/50 transcripts analyzed. 28 remaining were rate-limited by Fireflies daily API cap. Need to retry. Output so far: 14 company profiles in clients/sales-profile-analysis.md.", docs: [] }
-      ]}
-    ]},
-    { id: "blocked", title: "Blocked", groups: [
-      { project: "Fireflies", tasks: [
-        { desc: "28 transcript fetches (API rate limit)", notes: "Fireflies GraphQL API daily rate limit hit. Need to retry in batches. Companies pending: StarkNet, BranchOut/Voyager, GenLayer Labs, YieldNest Finance, Recall Foundation, LimeChain, Rush Trade, others.", docs: [] }
-      ]},
-      { project: "Discord", tasks: [
-        { desc: "Bot can't post in #client-health", notes: "Bot permissions issue. Bryan needs to give Botvoldo bot role Send Messages permission in #client-health, #pipeline, and #competitive-intel channels.", docs: [] }
-      ]}
-    ]},
-    { id: "for-review", title: "For Review", groups: [
-      { project: "Rainbow", tasks: [
-        { desc: "WAGMI Inc. research v3", notes: "Deep research delivered. Key findings: legal name is WAGMI Inc., FL entity inactive (revoked 2022), incorporated in Delaware, Fractal Wagmi Inc. filed SEC Form D, Rainbow Foundation (Cayman) holds 20% equity via Class F stock, Alex LaPrade became CEO late 2024. Bryan reviewed and accepted for now.", docs: [
+  lastUpdated: "2026-02-18T15:45:00-08:00",
+  projects: {
+    "Admin": {
+      color: "#64748b",
+      class: "pc-admin",
+      tasks: [
+        { status: "done", desc: "GitHub access + kanban board deployed", notes: "Repo: github.com/chewyblooey/botvoldo-kanban. GitHub Pages live.", docs: [] },
+        { status: "not-started", desc: "Fix Discord bot permissions", notes: "Bot can see #general but can't post in #client-health, #pipeline, or #competitive-intel. Need to check Botvoldo bot role permissions — ensure View Channel + Send Messages for all channels.", docs: [] }
+      ]
+    },
+    "Rainbow Wallet": {
+      color: "#059669",
+      class: "pc-rainbow",
+      tasks: [
+        { status: "for-review", desc: "WAGMI Inc. research v3", notes: "Deep research delivered. Key findings: legal name is WAGMI Inc., FL entity inactive (revoked 2022), incorporated in Delaware, Fractal Wagmi Inc. filed SEC Form D, Rainbow Foundation (Cayman) holds 20% equity via Class F stock, Alex LaPrade became CEO late 2024.", docs: [
           { name: "WAGMI Research v3", url: "https://drive.google.com/file/d/1bRPVny9ZNHBCWpHVrrrFedWJR1r-CpXo/view", icon: "📄" },
           { name: "Company Research v2", url: "https://drive.google.com/file/d/1IvOZpwA5JcSSt6lq6NtLyPudZcVtT9tN/view", icon: "📄" },
           { name: "Company Research v1", url: "https://drive.google.com/file/d/19Lh6wJbB3iDDT8nlHcoCLX_FnGvLryLu/view", icon: "📄" }
+        ]},
+        { status: "not-started", desc: "Collect benchmarks from protocols", notes: "Need industry benchmarks for marketing performance in crypto/Web3 protocols to show Phoenix delivered above-standard results.", docs: [] },
+        { status: "not-started", desc: "Performance above industry standard — what's the target?", notes: "Define what 'above industry standard' means quantitatively for comparable crypto marketing engagements.", docs: [] },
+        { status: "not-started", desc: "Figure out excerpts from long chats", notes: "Extract relevant excerpts from lengthy chat histories with Rainbow team — evidence of scope, deliverables, agreements.", docs: [] },
+        { status: "not-started", desc: "Find instances of compliments", notes: "Search communications for praise from Rainbow team. Evidence of satisfaction before relationship deteriorated.", docs: [] },
+        { status: "not-started", desc: "Invoices/payments to individuals", notes: "Gather all invoices sent and payments received from Rainbow/WAGMI Inc.", docs: [] },
+        { status: "not-started", desc: "Contracts for FFs", notes: "Locate all contracts related to freelancers/contractors who worked on Rainbow.", docs: [] },
+        { status: "not-started", desc: "Conversations confirming FFs for Rainbow", notes: "Find conversations confirming freelancers were engaged specifically for Rainbow work.", docs: [] },
+        { status: "not-started", desc: "Screenshot confirming termination from Alex", notes: "Find screenshot/communication showing termination notice was supposed to come from Alex LaPrade.", docs: [] },
+        { status: "not-started", desc: "Receipts for recruiter costs", notes: "Gather receipts for recruiting costs incurred for Rainbow-related hiring.", docs: [] },
+        { status: "not-started", desc: "Find approved brief messages", notes: "Locate messages where Rainbow team approved creative briefs — evidence work was sanctioned.", docs: [] },
+        { status: "done", desc: "Company research v1, v2, v3 delivered", notes: "Progressed from basic info → deep WAGMI Inc. research across 3 versions.", docs: [
+          { name: "WAGMI Research v3", url: "https://drive.google.com/file/d/1bRPVny9ZNHBCWpHVrrrFedWJR1r-CpXo/view", icon: "📄" }
         ]}
-      ]},
-      { project: "Engel", tasks: [
-        { desc: "Kickoff questions", notes: "~18 questions across 4 categories: brand/assets, current creative process, workflow/approvals, priorities/timeline. Focused on creative production only per Bryan's direction.", docs: [
+      ]
+    },
+    "Protocol": {
+      color: "#8b5cf6",
+      class: "pc-protocol",
+      tasks: [
+        { status: "not-started", desc: "Transfer Klaviyo ownership", notes: "Transfer ownership of the Klaviyo account to Protocol team.", docs: [] }
+      ]
+    },
+    "Benqi": {
+      color: "#0d9488",
+      class: "pc-benqi",
+      tasks: [
+        { status: "not-started", desc: "Review strategy to date", notes: "Review current marketing strategy and results. Assess what's working and what needs adjustment.", docs: [] }
+      ]
+    },
+    "At Last": {
+      color: "#d97706",
+      class: "pc-atlast",
+      tasks: [
+        { status: "not-started", desc: "Review updated docs and next steps with Carl", notes: "Carl has updated docs that need review. Discuss next steps.", docs: [] }
+      ]
+    },
+    "Engel / Pro Rata": {
+      color: "#0891b2",
+      class: "pc-engel",
+      tasks: [
+        { status: "not-started", desc: "Email Molly project plan for week 1", notes: "Send Molly the week 1 project plan for Pro Rata / Engel Collective engagement.", docs: [] },
+        { status: "not-started", desc: "Creative Claude Cowork initial work", notes: "Use the creative production workflow prompt in Claude Cowork.", docs: [
+          { name: "Creative Workflow Prompt", url: "https://drive.google.com/file/d/1gvRNCwf5jw8LdtnPtNO0BS3_Rw8hKf-v/view", icon: "📄" }
+        ]},
+        { status: "for-review", desc: "Kickoff questions", notes: "~18 questions across 4 categories: brand/assets, current process, workflow/approvals, priorities. Creative production focused.", docs: [
           { name: "Kickoff Questions", url: "https://drive.google.com/file/d/18rGEU2OxdfR9hs7lkY50-xrXHUhqeNTy/view", icon: "📄" },
           { name: "Research Brief", url: "https://drive.google.com/file/d/1grOrE__0SJ76FY0lhw_z-geH-7Cr1Wn2/view", icon: "📄" },
           { name: "SOW Analysis", url: "https://drive.google.com/file/d/1crz2XT_jDLtLKII2A8Ae8QC1EygFSmHW/view", icon: "📄" }
-        ]}
-      ]},
-      { project: "Frensy", tasks: [
-        { desc: "UX annotations + dev docs (5 files)", notes: "Complete UX documentation for 31 screens. Includes annotations, new feature specs, Figma Make prompts, dev handoff docs, and MVP scope.", docs: [
+        ]},
+        { status: "done", desc: "Kickoff questions drafted", notes: "Creative production focused per Bryan's direction.", docs: [] }
+      ]
+    },
+    "Frensy": {
+      color: "#db2777",
+      class: "pc-frensy",
+      tasks: [
+        { status: "in-progress", desc: "UX docs ready for Bryan review", notes: "All 5 Frensy UX documents delivered. Bryan needs to review and implement recommendations.", docs: [
           { name: "UX Annotations v3", url: "https://drive.google.com/file/d/1tSfNnh3NPqJC0jr3EdtfYepGxRu3TNId/view", icon: "📄" },
           { name: "New Features Spec", url: "https://drive.google.com/file/d/18TA-QhdrWnJvaaame8aaaEWviWxkznGs/view", icon: "📄" },
           { name: "Figma Make Prompts", url: "https://drive.google.com/file/d/1NenqAj-WhJpf5bIalwKbDXS5HuLxqQnF/view", icon: "📄" },
           { name: "Dev Documentation", url: "https://drive.google.com/file/d/1KWEvCoHpNvnG9M4hWvoX49L95nQiLUln/view", icon: "📄" },
           { name: "MVP vs Future State", url: "https://drive.google.com/file/d/1GjjNIeFDfJBjm65LY5cT6qCw4ZGk_gMT/view", icon: "📄" }
-        ]}
-      ]},
-      { project: "Phoenix", tasks: [
-        { desc: "Creative workflow prompt", notes: "5-stage workflow: Intake (Google Form) → Brief (Google Doc) → Notion Task → Internal Review → Client Review.", docs: [
-          { name: "Creative Workflow Prompt", url: "https://drive.google.com/file/d/1gvRNCwf5jw8LdtnPtNO0BS3_Rw8hKf-v/view", icon: "📄" }
         ]},
-        { desc: "Client health framework + tracking sheet", notes: "Full framework: 7 signals scored weekly per client, RAG thresholds, pattern recognition (Slow Ghost, Revision Death Spiral, etc.), Friday score / Monday review cadence.", docs: [
+        { status: "in-progress", desc: "Implement UX recommendations", notes: "Submit Post → FAB/compact bar. Profile → clear sections. Marketplace → visual product cards.", docs: [] },
+        { status: "in-progress", desc: "Review and send annotations/docs to team", notes: "After Bryan's review, docs go to dev/design team.", docs: [] }
+      ]
+    },
+    "Tria": {
+      color: "#6366f1",
+      class: "pc-tria",
+      tasks: [
+        { status: "not-started", desc: "Schedule meeting with Carl — Community Response Team", notes: "New project. Set up initial meeting with Carl to discuss the Community Response Team concept.", docs: [] }
+      ]
+    },
+    "Magic Eden": {
+      color: "#7c3aed",
+      class: "pc-magiceden",
+      tasks: []
+    },
+    "Phoenix": {
+      color: "#c026d3",
+      class: "pc-phoenix",
+      tasks: [
+        { status: "not-started", desc: "End-of-week survey Google Form", notes: "Build a Google Form for weekly client health pulse. 5 questions (1-5 scale) + open text. Account leads fill out per client every Friday.", docs: [
           { name: "Client Health Tracker", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" },
           { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
-        ]}
-      ]}
-    ]},
-    { id: "done", title: "Done", groups: [
-      { project: "Admin", tasks: [
-        { desc: "GitHub access + kanban board deployed", notes: "Repo: github.com/chewyblooey/botvoldo-kanban. GitHub Pages live.", docs: [] }
-      ]},
-      { project: "Rainbow", tasks: [
-        { desc: "Company research v1, v2, v3 delivered", notes: "Progressed from basic company info → deep WAGMI Inc. research. Key findings: WAGMI Inc. is the real legal name, FL entity inactive, Fractal Wagmi SEC filing, Rainbow Foundation 20% equity.", docs: [
-          { name: "WAGMI Research v3", url: "https://drive.google.com/file/d/1bRPVny9ZNHBCWpHVrrrFedWJR1r-CpXo/view", icon: "📄" }
-        ]}
-      ]},
-      { project: "Engel", tasks: [
-        { desc: "Kickoff questions drafted", notes: "Creative production focused per Bryan's direction. Ready to send.", docs: [
-          { name: "Kickoff Questions", url: "https://drive.google.com/file/d/18rGEU2OxdfR9hs7lkY50-xrXHUhqeNTy/view", icon: "📄" }
-        ]}
-      ]},
-      { project: "Phoenix", tasks: [
-        { desc: "Creative workflow prompt created", notes: "5-stage creative production workflow for Claude Cowork.", docs: [] },
-        { desc: "Project health research", notes: "Comprehensive research covering metrics, frameworks, cadences, templates, Web3-specific signals.", docs: [
+        ]},
+        { status: "not-started", desc: "4-week rollout plan for health system", notes: "Detailed plan in research doc. Needs actionable weekly steps.", docs: [
           { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
         ]},
-        { desc: "Client health framework posted to Discord", notes: "Posted to #client-health (pending bot permissions fix).", docs: [] }
-      ]},
-      { project: "Setup", tasks: [
-        { desc: "Discord bot (4 channels)", notes: "Server 1473091198058233866. Channels: general, pipeline, client-health, competitive-intel. Allowlist mode, requireMention enabled.", docs: [] },
-        { desc: "Google Workspace (gog CLI)", notes: "Account: botvoldoworks@gmail.com. Services: drive, sheets, docs.", docs: [] },
-        { desc: "Shared Drive folder", notes: "Voldo's Shared Drive — shared with bd@phxmktg.xyz + davila.bryand@gmail.com. Client subfolders: Magic Eden, Frensy, Engel Collective, Phoenix, Rainbow Wallet.", docs: [
-          { name: "Voldo's Shared Drive", url: "https://drive.google.com/drive/folders/1IgexkE301J4mF5NfqMrKm3XDaKnFuM_y", icon: "📁" }
+        { status: "in-progress", desc: "Client health tracking system", notes: "Sheet built: Weekly Scores, Client Summary, Signal Log. Survey pending. 7 signals, -11 to +10 range.", docs: [
+          { name: "Client Health Tracker", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" }
         ]},
-        { desc: "Gmail email verified", notes: "botvoldoworks@gmail.com → bd@phxmktg.xyz test successful.", docs: [] },
-        { desc: "Kanban board site live", notes: "GitHub Pages deployment.", docs: [] }
-      ]}
-    ]}
-  ]
+        { status: "in-progress", desc: "Creative workflow — Bryan reviewing prompt", notes: "5-stage creative production workflow. Bryan reviewing before using in Cowork.", docs: [
+          { name: "Creative Workflow Prompt", url: "https://drive.google.com/file/d/1gvRNCwf5jw8LdtnPtNO0BS3_Rw8hKf-v/view", icon: "📄" }
+        ]},
+        { status: "for-review", desc: "Client health framework + tracking sheet", notes: "7 signals scored weekly per client. RAG thresholds. Pattern recognition: Slow Ghost, Revision Death Spiral, Enthusiasm Cliff, Scope Quicksand, Happy but Flat.", docs: [
+          { name: "Client Health Tracker", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" },
+          { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
+        ]},
+        { status: "done", desc: "Creative workflow prompt created", notes: "5-stage workflow: Intake → Brief → Notion Task → Internal Review → Client Review.", docs: [] },
+        { status: "done", desc: "Project health research completed", notes: "Covers metrics, frameworks, cadences, templates, Web3-specific signals.", docs: [
+          { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
+        ]},
+        { status: "done", desc: "Client health framework posted to Discord", notes: "Posted to #client-health channel.", docs: [] }
+      ]
+    }
+  }
 };
 
-const projectClass = p => 'project-' + p.toLowerCase().replace(/\s+/g, '').replace('/', '');
-const formatDate = d => new Date(d).toLocaleString('en-US', {dateStyle:'medium', timeStyle:'short'});
+const statuses = ['not-started','in-progress','blocked','for-review','done'];
 const statusLabels = {'not-started':'Not Started','in-progress':'In Progress','blocked':'Blocked','for-review':'For Review','done':'Done'};
+const formatDate = d => new Date(d).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
 
-document.getElementById('updated').textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
-const board = document.getElementById('board');
+const dashboard = document.getElementById('dashboard');
+const boardEl = document.getElementById('board');
+const backBtn = document.getElementById('back-btn');
 const overlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
+const pageTitle = document.getElementById('page-title');
+const subtitle = document.getElementById('subtitle');
 
-overlay.addEventListener('click', e => { if(e.target === overlay) overlay.classList.remove('active'); });
+overlay.addEventListener('click', e => { if(e.target===overlay) overlay.classList.remove('active'); });
 document.getElementById('modal-close').addEventListener('click', () => overlay.classList.remove('active'));
-document.addEventListener('keydown', e => { if(e.key === 'Escape') overlay.classList.remove('active'); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') overlay.classList.remove('active'); });
 
-function openCard(task, project, colId) {
-  let html = `<span class="modal-project ${projectClass(project)}">${project}</span>`;
-  html += `<h3>${task.desc}</h3>`;
-  html += `<span class="modal-status">${statusLabels[colId]}</span>`;
+function countByStatus(tasks, s) { return tasks.filter(t => t.status === s).length; }
+
+function showDashboard() {
+  boardEl.classList.add('hidden');
+  backBtn.classList.add('hidden');
+  dashboard.classList.remove('hidden');
+  pageTitle.textContent = '🗂 Botvoldo Kanban';
+  subtitle.textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
+  window.location.hash = '';
+}
+
+function showProject(name) {
+  const proj = DATA.projects[name];
+  if(!proj) return;
+  dashboard.classList.add('hidden');
+  backBtn.classList.remove('hidden');
+  boardEl.classList.remove('hidden');
+  pageTitle.textContent = name;
+  subtitle.textContent = proj.tasks.length + ' tasks';
+  boardEl.innerHTML = '';
+
+  statuses.forEach(s => {
+    const col = document.createElement('div');
+    col.className = 'column col-' + s;
+    const tasks = proj.tasks.filter(t => t.status === s);
+    col.innerHTML = `<h2>${statusLabels[s]}<span class="count">${tasks.length}</span></h2>`;
+    if(tasks.length === 0) {
+      col.innerHTML += '<div class="empty-col">No tasks</div>';
+    }
+    tasks.forEach(t => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const hasInfo = (t.notes || (t.docs && t.docs.length > 0));
+      card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}`;
+      card.addEventListener('click', () => openCard(t, name));
+      col.appendChild(card);
+    });
+    boardEl.appendChild(col);
+  });
+  window.location.hash = encodeURIComponent(name);
+}
+
+function openCard(task, project) {
+  let html = `<h3>${task.desc}</h3>`;
+  html += `<span class="modal-status">${statusLabels[task.status]}</span>`;
   html += `<div class="section-label">Notes</div>`;
   html += task.notes ? `<div class="notes">${task.notes}</div>` : `<div class="no-content">No notes yet</div>`;
   html += `<div class="section-label">Documents</div>`;
   if(task.docs && task.docs.length > 0) {
     html += '<ul class="docs-list">';
-    task.docs.forEach(d => {
-      html += `<li><a href="${d.url}" target="_blank"><span class="doc-icon">${d.icon}</span> ${d.name}</a></li>`;
-    });
+    task.docs.forEach(d => { html += `<li><a href="${d.url}" target="_blank">${d.icon} ${d.name}</a></li>`; });
     html += '</ul>';
   } else {
     html += `<div class="no-content">No documents yet</div>`;
@@ -255,27 +290,37 @@ function openCard(task, project, colId) {
   overlay.classList.add('active');
 }
 
-DATA.columns.forEach(col => {
-  const colEl = document.createElement('div');
-  colEl.className = 'column col-' + col.id;
-  const total = col.groups.reduce((s,g) => s + g.tasks.length, 0);
-  colEl.innerHTML = `<h2>${col.title}<span class="count">${total}</span></h2>`;
-  col.groups.forEach(g => {
-    const group = document.createElement('div');
-    group.className = 'project-group';
-    group.innerHTML = `<span class="project-header ${projectClass(g.project)}">${g.project}</span>`;
-    g.tasks.forEach(t => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const hasInfo = (t.notes || (t.docs && t.docs.length > 0));
-      card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}`;
-      card.addEventListener('click', () => openCard(t, g.project, col.id));
-      group.appendChild(card);
-    });
-    colEl.appendChild(group);
-  });
-  board.appendChild(colEl);
+// Build dashboard
+Object.entries(DATA.projects).forEach(([name, proj]) => {
+  const card = document.createElement('div');
+  card.className = 'project-card ' + proj.class;
+  const total = proj.tasks.length;
+  const done = countByStatus(proj.tasks, 'done');
+  const inProg = countByStatus(proj.tasks, 'in-progress');
+  const blocked = countByStatus(proj.tasks, 'blocked');
+  const review = countByStatus(proj.tasks, 'for-review');
+  const notStarted = countByStatus(proj.tasks, 'not-started');
+  let statsHtml = '';
+  if(total === 0) { statsHtml = '<span>No tasks yet</span>'; }
+  else {
+    if(done) statsHtml += `<span>✅ ${done} done</span>`;
+    if(inProg) statsHtml += `<span>🔵 ${inProg} active</span>`;
+    if(review) statsHtml += `<span>🟡 ${review} review</span>`;
+    if(blocked) statsHtml += `<span>🔴 ${blocked} blocked</span>`;
+    if(notStarted) statsHtml += `<span>⚪ ${notStarted} pending</span>`;
+  }
+  card.innerHTML = `<h3>${name}</h3><div class="stats">${statsHtml}</div>`;
+  card.addEventListener('click', () => showProject(name));
+  dashboard.appendChild(card);
 });
+
+// Handle direct links
+if(window.location.hash) {
+  const proj = decodeURIComponent(window.location.hash.slice(1));
+  if(DATA.projects[proj]) showProject(proj);
+} else {
+  subtitle.textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
+}
 </script>
 </body>
 </html>
