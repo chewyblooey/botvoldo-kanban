@@ -8,33 +8,30 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#1a1a2e;color:#e0e0e0;min-height:100vh;padding:20px}
 h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
-.subtitle{text-align:center;color:#888;font-size:.8rem;margin-bottom:24px}
-.back{display:inline-flex;align-items:center;gap:6px;color:#60a5fa;text-decoration:none;font-size:.85rem;margin-bottom:16px;cursor:pointer}
-.back:hover{color:#93c5fd}
+.subtitle{text-align:center;color:#888;font-size:.8rem;margin-bottom:16px}
 
-/* Dashboard */
-.dashboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;max-width:1200px;margin:0 auto}
-.project-card{background:#16213e;border-radius:12px;padding:20px;cursor:pointer;transition:transform .15s,box-shadow .15s;border-left:4px solid}
-.project-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.project-card h3{font-size:1rem;color:#fff;margin-bottom:8px}
-.project-card .stats{font-size:.75rem;color:#94a3b8;display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
-.project-card .stats span{display:flex;align-items:center;gap:4px}
-.project-card .desc{font-size:.8rem;color:#64748b;line-height:1.4}
-.pc-admin{border-left-color:#64748b}
-.pc-rainbow{border-left-color:#059669}
-.pc-protocol{border-left-color:#8b5cf6}
-.pc-benqi{border-left-color:#0d9488}
-.pc-atlast{border-left-color:#d97706}
-.pc-engel{border-left-color:#0891b2}
-.pc-frensy{border-left-color:#db2777}
-.pc-tria{border-left-color:#6366f1}
-.pc-magiceden{border-left-color:#7c3aed}
-.pc-phoenix{border-left-color:#c026d3}
-.pc-setup{border-left-color:#475569}
+/* Tabs */
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;border-bottom:1px solid #2a3a5c;max-width:1400px;margin-left:auto;margin-right:auto}
+.tab{padding:8px 16px;border-radius:8px 8px 0 0;cursor:pointer;font-size:.78rem;font-weight:600;white-space:nowrap;transition:background .15s,color .15s;color:#64748b;background:transparent;border:none;position:relative}
+.tab:hover{color:#cbd5e1;background:#16213e}
+.tab.active{color:#fff;background:#16213e}
+.tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px}
+.tab .tab-count{font-size:.65rem;background:#2a3a5c;color:#94a3b8;padding:1px 6px;border-radius:10px;margin-left:6px}
+.tab.active .tab-count{background:#3b82f6;color:#fff}
+.tab-admin.active::after{background:#64748b}
+.tab-rainbow.active::after{background:#059669}
+.tab-protocol.active::after{background:#8b5cf6}
+.tab-benqi.active::after{background:#0d9488}
+.tab-atlast.active::after{background:#d97706}
+.tab-engel.active::after{background:#0891b2}
+.tab-frensy.active::after{background:#db2777}
+.tab-tria.active::after{background:#6366f1}
+.tab-magiceden.active::after{background:#7c3aed}
+.tab-phoenix.active::after{background:#c026d3}
 
 /* Board */
 .board{display:flex;gap:16px;overflow-x:auto;padding-bottom:20px;align-items:flex-start;max-width:1400px;margin:0 auto}
-.column{min-width:250px;flex:1;border-radius:12px;padding:14px;background:#16213e}
+.column{min-width:240px;flex:1;border-radius:12px;padding:14px;background:#16213e}
 .column>h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid}
 .col-not-started>h2{border-color:#6b7280;color:#9ca3af}
 .col-in-progress>h2{border-color:#3b82f6;color:#60a5fa}
@@ -68,16 +65,14 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 .modal .docs-list a{color:#60a5fa;text-decoration:none;font-size:.85rem;display:flex;align-items:center;gap:6px}
 .modal .docs-list a:hover{text-decoration:underline;color:#93c5fd}
 .modal .no-content{font-size:.8rem;color:#4b5563;font-style:italic}
-.hidden{display:none}
-@media(max-width:768px){.board{flex-direction:column}.column{min-width:100%}.dashboard{grid-template-columns:1fr}}
+@media(max-width:768px){.board{flex-direction:column}.column{min-width:100%}.tabs{flex-wrap:wrap}.tab{font-size:.7rem;padding:6px 10px}}
 </style>
 </head>
 <body>
-<h1 id="page-title">🗂 Botvoldo Kanban</h1>
+<h1>🗂 Botvoldo Kanban</h1>
 <div class="subtitle" id="subtitle"></div>
-<a class="back hidden" id="back-btn" onclick="showDashboard()">← Back to Projects</a>
-<div class="dashboard" id="dashboard"></div>
-<div class="board hidden" id="board"></div>
+<div class="tabs" id="tabs"></div>
+<div class="board" id="board"></div>
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <button class="modal-close" id="modal-close">&times;</button>
@@ -86,19 +81,17 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 </div>
 <script>
 const DATA = {
-  lastUpdated: "2026-02-18T15:45:00-08:00",
+  lastUpdated: "2026-02-18T16:00:00-08:00",
   projects: {
     "Admin": {
-      color: "#64748b",
-      class: "pc-admin",
+      tabClass: "tab-admin",
       tasks: [
         { status: "done", desc: "GitHub access + kanban board deployed", notes: "Repo: github.com/chewyblooey/botvoldo-kanban. GitHub Pages live.", docs: [] },
         { status: "not-started", desc: "Fix Discord bot permissions", notes: "Bot can see #general but can't post in #client-health, #pipeline, or #competitive-intel. Need to check Botvoldo bot role permissions — ensure View Channel + Send Messages for all channels.", docs: [] }
       ]
     },
     "Rainbow Wallet": {
-      color: "#059669",
-      class: "pc-rainbow",
+      tabClass: "tab-rainbow",
       tasks: [
         { status: "for-review", desc: "WAGMI Inc. research v3", notes: "Deep research delivered. Key findings: legal name is WAGMI Inc., FL entity inactive (revoked 2022), incorporated in Delaware, Fractal Wagmi Inc. filed SEC Form D, Rainbow Foundation (Cayman) holds 20% equity via Class F stock, Alex LaPrade became CEO late 2024.", docs: [
           { name: "WAGMI Research v3", url: "https://drive.google.com/file/d/1bRPVny9ZNHBCWpHVrrrFedWJR1r-CpXo/view", icon: "📄" },
@@ -121,29 +114,25 @@ const DATA = {
       ]
     },
     "Protocol": {
-      color: "#8b5cf6",
-      class: "pc-protocol",
+      tabClass: "tab-protocol",
       tasks: [
         { status: "not-started", desc: "Transfer Klaviyo ownership", notes: "Transfer ownership of the Klaviyo account to Protocol team.", docs: [] }
       ]
     },
     "Benqi": {
-      color: "#0d9488",
-      class: "pc-benqi",
+      tabClass: "tab-benqi",
       tasks: [
         { status: "not-started", desc: "Review strategy to date", notes: "Review current marketing strategy and results. Assess what's working and what needs adjustment.", docs: [] }
       ]
     },
     "At Last": {
-      color: "#d97706",
-      class: "pc-atlast",
+      tabClass: "tab-atlast",
       tasks: [
         { status: "not-started", desc: "Review updated docs and next steps with Carl", notes: "Carl has updated docs that need review. Discuss next steps.", docs: [] }
       ]
     },
     "Engel / Pro Rata": {
-      color: "#0891b2",
-      class: "pc-engel",
+      tabClass: "tab-engel",
       tasks: [
         { status: "not-started", desc: "Email Molly project plan for week 1", notes: "Send Molly the week 1 project plan for Pro Rata / Engel Collective engagement.", docs: [] },
         { status: "not-started", desc: "Creative Claude Cowork initial work", notes: "Use the creative production workflow prompt in Claude Cowork.", docs: [
@@ -158,8 +147,7 @@ const DATA = {
       ]
     },
     "Frensy": {
-      color: "#db2777",
-      class: "pc-frensy",
+      tabClass: "tab-frensy",
       tasks: [
         { status: "in-progress", desc: "UX docs ready for Bryan review", notes: "All 5 Frensy UX documents delivered. Bryan needs to review and implement recommendations.", docs: [
           { name: "UX Annotations v3", url: "https://drive.google.com/file/d/1tSfNnh3NPqJC0jr3EdtfYepGxRu3TNId/view", icon: "📄" },
@@ -173,20 +161,17 @@ const DATA = {
       ]
     },
     "Tria": {
-      color: "#6366f1",
-      class: "pc-tria",
+      tabClass: "tab-tria",
       tasks: [
         { status: "not-started", desc: "Schedule meeting with Carl — Community Response Team", notes: "New project. Set up initial meeting with Carl to discuss the Community Response Team concept.", docs: [] }
       ]
     },
     "Magic Eden": {
-      color: "#7c3aed",
-      class: "pc-magiceden",
+      tabClass: "tab-magiceden",
       tasks: []
     },
     "Phoenix": {
-      color: "#c026d3",
-      class: "pc-phoenix",
+      tabClass: "tab-phoenix",
       tasks: [
         { status: "not-started", desc: "End-of-week survey Google Form", notes: "Build a Google Form for weekly client health pulse. 5 questions (1-5 scale) + open text. Account leads fill out per client every Friday.", docs: [
           { name: "Client Health Tracker", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" },
@@ -219,53 +204,41 @@ const statuses = ['not-started','in-progress','blocked','for-review','done'];
 const statusLabels = {'not-started':'Not Started','in-progress':'In Progress','blocked':'Blocked','for-review':'For Review','done':'Done'};
 const formatDate = d => new Date(d).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
 
-const dashboard = document.getElementById('dashboard');
+const tabsEl = document.getElementById('tabs');
 const boardEl = document.getElementById('board');
-const backBtn = document.getElementById('back-btn');
 const overlay = document.getElementById('modal-overlay');
 const modalContent = document.getElementById('modal-content');
-const pageTitle = document.getElementById('page-title');
 const subtitle = document.getElementById('subtitle');
+
+subtitle.textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
 
 overlay.addEventListener('click', e => { if(e.target===overlay) overlay.classList.remove('active'); });
 document.getElementById('modal-close').addEventListener('click', () => overlay.classList.remove('active'));
 document.addEventListener('keydown', e => { if(e.key==='Escape') overlay.classList.remove('active'); });
 
-function countByStatus(tasks, s) { return tasks.filter(t => t.status === s).length; }
-
-function showDashboard() {
-  boardEl.classList.add('hidden');
-  backBtn.classList.add('hidden');
-  dashboard.classList.remove('hidden');
-  pageTitle.textContent = '🗂 Botvoldo Kanban';
-  subtitle.textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
-  window.location.hash = '';
-}
+let activeTab = null;
 
 function showProject(name) {
   const proj = DATA.projects[name];
   if(!proj) return;
-  dashboard.classList.add('hidden');
-  backBtn.classList.remove('hidden');
-  boardEl.classList.remove('hidden');
-  pageTitle.textContent = name;
-  subtitle.textContent = proj.tasks.length + ' tasks';
-  boardEl.innerHTML = '';
+  activeTab = name;
 
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab[data-project="${name}"]`).classList.add('active');
+
+  boardEl.innerHTML = '';
   statuses.forEach(s => {
     const col = document.createElement('div');
     col.className = 'column col-' + s;
     const tasks = proj.tasks.filter(t => t.status === s);
     col.innerHTML = `<h2>${statusLabels[s]}<span class="count">${tasks.length}</span></h2>`;
-    if(tasks.length === 0) {
-      col.innerHTML += '<div class="empty-col">No tasks</div>';
-    }
+    if(tasks.length === 0) col.innerHTML += '<div class="empty-col">No tasks</div>';
     tasks.forEach(t => {
       const card = document.createElement('div');
       card.className = 'card';
       const hasInfo = (t.notes || (t.docs && t.docs.length > 0));
       card.innerHTML = `<p>${t.desc}</p>${hasInfo ? '<div class="has-details">📎 Click for details</div>' : ''}`;
-      card.addEventListener('click', () => openCard(t, name));
+      card.addEventListener('click', () => openCard(t));
       col.appendChild(card);
     });
     boardEl.appendChild(col);
@@ -273,7 +246,7 @@ function showProject(name) {
   window.location.hash = encodeURIComponent(name);
 }
 
-function openCard(task, project) {
+function openCard(task) {
   let html = `<h3>${task.desc}</h3>`;
   html += `<span class="modal-status">${statusLabels[task.status]}</span>`;
   html += `<div class="section-label">Notes</div>`;
@@ -284,42 +257,30 @@ function openCard(task, project) {
     task.docs.forEach(d => { html += `<li><a href="${d.url}" target="_blank">${d.icon} ${d.name}</a></li>`; });
     html += '</ul>';
   } else {
-    html += `<div class="no-content">No documents yet</div>`;
+    html += '<div class="no-content">No documents yet</div>';
   }
   modalContent.innerHTML = html;
   overlay.classList.add('active');
 }
 
-// Build dashboard
+// Build tabs
 Object.entries(DATA.projects).forEach(([name, proj]) => {
-  const card = document.createElement('div');
-  card.className = 'project-card ' + proj.class;
+  const tab = document.createElement('button');
+  tab.className = 'tab ' + proj.tabClass;
+  tab.dataset.project = name;
   const total = proj.tasks.length;
-  const done = countByStatus(proj.tasks, 'done');
-  const inProg = countByStatus(proj.tasks, 'in-progress');
-  const blocked = countByStatus(proj.tasks, 'blocked');
-  const review = countByStatus(proj.tasks, 'for-review');
-  const notStarted = countByStatus(proj.tasks, 'not-started');
-  let statsHtml = '';
-  if(total === 0) { statsHtml = '<span>No tasks yet</span>'; }
-  else {
-    if(done) statsHtml += `<span>✅ ${done} done</span>`;
-    if(inProg) statsHtml += `<span>🔵 ${inProg} active</span>`;
-    if(review) statsHtml += `<span>🟡 ${review} review</span>`;
-    if(blocked) statsHtml += `<span>🔴 ${blocked} blocked</span>`;
-    if(notStarted) statsHtml += `<span>⚪ ${notStarted} pending</span>`;
-  }
-  card.innerHTML = `<h3>${name}</h3><div class="stats">${statsHtml}</div>`;
-  card.addEventListener('click', () => showProject(name));
-  dashboard.appendChild(card);
+  tab.innerHTML = `${name}<span class="tab-count">${total}</span>`;
+  tab.addEventListener('click', () => showProject(name));
+  tabsEl.appendChild(tab);
 });
 
-// Handle direct links
+// Load from hash or default to Admin
 if(window.location.hash) {
   const proj = decodeURIComponent(window.location.hash.slice(1));
   if(DATA.projects[proj]) showProject(proj);
+  else showProject('Admin');
 } else {
-  subtitle.textContent = 'Last updated: ' + formatDate(DATA.lastUpdated);
+  showProject('Admin');
 }
 </script>
 </body>
