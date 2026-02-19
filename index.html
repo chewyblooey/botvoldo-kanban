@@ -84,13 +84,13 @@ h1{text-align:center;font-size:1.6rem;margin-bottom:4px;color:#fff}
 </div>
 <script>
 const DATA = {
-  lastUpdated: "2026-02-18T16:00:00-08:00",
+  lastUpdated: "2026-02-18T16:55:00-08:00",
   projects: {
     "Admin": {
       tabClass: "tab-admin",
       tasks: [
         { status: "done", desc: "GitHub access + kanban board deployed", notes: "Repo: github.com/chewyblooey/botvoldo-kanban. GitHub Pages live.", docs: [] },
-        { status: "not-started", desc: "Fix Discord bot permissions", notes: "Bot can see #general but can't post in #client-health, #pipeline, or #competitive-intel. Need to check Botvoldo bot role permissions — ensure View Channel + Send Messages for all channels.", docs: [] }
+        { status: "done", desc: "Fix Discord bot permissions", notes: "Fixed: Token reset, OAuth re-invite with proper permissions (274877975552), all 3 privileged intents enabled. Bot online and chatting in all 4 channels.", docs: [] }
       ]
     },
     "Rainbow Wallet": {
@@ -176,8 +176,9 @@ const DATA = {
     "Phoenix": {
       tabClass: "tab-phoenix",
       tasks: [
-        { status: "not-started", desc: "End-of-week survey Google Form", notes: "Build a Google Form for weekly client health pulse. 5 questions (1-5 scale) + open text. Account leads fill out per client every Friday.", docs: [
+        { status: "done", desc: "End-of-week survey Google Form", notes: "Built! 7 signals scored via radio buttons, client dropdown, date, account lead, notes field. Shared with bd@phxmktg.xyz as editor. In Phoenix Drive folder.", docs: [
           { name: "Client Health Tracker", url: "https://docs.google.com/spreadsheets/d/1OmRzRYnht4KiFkqPBA7ZqINioHsSsFIHh1kBrv_188c/edit", icon: "📊" },
+          { name: "Weekly Survey Form", url: "https://docs.google.com/forms/d/1qlbiG6ssqYpHLnOiPJ3xygIQzf96lBbqrByCeBSNni0/edit", icon: "📋" },
           { name: "Project Health Research", url: "https://drive.google.com/file/d/1CjEv2DShqm7Rl3JSW59_wCpEB46h-Da-/view", icon: "📄" }
         ]},
         { status: "not-started", desc: "4-week rollout plan for health system", notes: "Detailed plan in research doc. Needs actionable weekly steps.", docs: [
